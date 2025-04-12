@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX GET Request</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>AJAX GET Request for Categories</h1>
+
+    <button id="loadCategoriesBtn">Load categories</button>
+
+    <h2>Результат</h2>
+    <pre id="result"></pre>
+
+    <script>
+        $(document).ready(function() {
+            $('#loadCategoriesBtn').click(function() {
+                const token = '240d528c13b2a6dea5013cbd3998d7d9ffc02f3c';
+
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/api/v1/categories/',
+                    type: 'GET',
+                    headers: {
+                        'Authorization': 'Token ' + token,
+                    },
+                    success: function(response) {
+                        $('#result').text(JSON.stringify(response, null, 2));
+                    },
+                    error: function(xhr, status, error) {
+                        $('#result').text('Error: ' + xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
